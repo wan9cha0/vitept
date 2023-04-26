@@ -1,11 +1,13 @@
 <template>
   <div class="page">
-    <div class="btn">点击刷新</div>
+    <div class="btn" @click="reload">点击刷新</div>
   </div>
 </template>
 
 <script setup>
-import { nextTick, provide, ref } from 'vue'
+import { inject, nextTick, provide, ref } from 'vue'
+
+const reload = inject('reload')
 </script>
 
 <style lang="less" scoped>
