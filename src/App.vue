@@ -1,23 +1,35 @@
 <template>
   <div class="page">
-    <div class="calendar">
-      <div class="title">
-        <div class="item">{{ timeMsg.yearNum }}</div>
-        <div class="item">{{ timeMsg.monthNum }}</div>
-      </div>
-      <div class="head-nav">
-        <div v-for="e in week_day" :key="e.index" class="item">{{ e.name }}</div>
-      </div>
-      <div class="calendar-cont">
-        <div v-for="e, index in timeMsg.monthMsg" :key="index" class="item"
-          :class="[{ out: e.out }, { nowDay: e.nowDay }]">
-          {{ e.num }}</div>
-      </div>
-      <div class="set-box">
-        <div class="btn l" @click="chenge('last')"></div>
-        <div class="btn n" @click="chenge('next')"></div>
-      </div>
-    </div>
+    <var-card src="https://varlet.gitee.io/varlet-ui/cat.jpg">
+      <template #title>
+        <div class="head-box">
+          <div class="year">{{ timeMsg.yearNum }}年</div>
+          <div class="month">{{ timeMsg.monthNum }}月</div>
+        </div>
+      </template>
+      <template #description>
+        <div class="calendar">
+          <div class="head-nav">
+            <div v-for="e in week_day" :key="e.index" class="item">{{ e.name }}</div>
+          </div>
+          <div class="calendar-cont">
+            <div v-for="e, index in timeMsg.monthMsg" :key="index" class="item"
+              :class="[{ out: e.out }, { nowDay: e.nowDay }]">
+              {{ e.num }}</div>
+          </div>
+        </div>
+      </template>
+      <template #extra>
+        <var-space :size="[0, 10]" justify="flex-end">
+          <var-button @click="chenge('last')" type="primary" round>
+            <var-icon name="chevron-up" />
+          </var-button>
+          <var-button @click="chenge('next')" type="primary" round>
+            <var-icon name="chevron-down" />
+          </var-button>
+        </var-space>
+      </template>
+    </var-card>
   </div>
   <!-- <router-view v-if="isRouterAlive" /> -->
 </template>
@@ -148,30 +160,33 @@ const chenge = (type) => {
 .page {
   position: relative;
   padding: 10px;
+  width: 100%;
+  height: 100vh;
 
-  .calendar {
+  .head-box {
     width: 100%;
+    padding: 20px 10px;
+    display: flex;
+    box-sizing: border-box;
 
-    .title {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      padding-bottom: 10px;
-      font-size: 20px;
-      .item {
-        margin: 0 20px;
-      }
+    .year {
+      font-size: 30px;
+      margin-right: 10px;
     }
 
-    .head-nav {
-      width: 100%;
-      display: flex;
+    .month {
+      font-size: 24px;
+    }
+  }
 
-      .item {
-        width: calc(100% / 7);
-        text-align: center;
-        line-height: 40px;
-      }
+  .head-nav {
+    width: 100%;
+    display: flex;
+
+    .item {
+      width: calc(100% / 7);
+      text-align: center;
+      line-height: 40px;
     }
   }
 
@@ -236,23 +251,5 @@ const chenge = (type) => {
       }
     }
   }
-}
-
-@media (prefers-color-scheme: light) {
-  .page .set-box .btn {
-    border: 1px solid #213547;
-
-    &.l:before {
-      border-top: 3px solid #213547;
-      border-left: 3px solid #213547;
-    }
-
-    &.n:before {
-      border-bottom: 3px solid #213547;
-      border-right: 3px solid #213547;
-    }
-  }
-
-
 }
 </style>
